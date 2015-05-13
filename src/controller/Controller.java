@@ -31,6 +31,7 @@ public class Controller extends HttpServlet {
 		Action.add(new SetHomeAction(model));
 		Action.add(new SetWorkAction(model));
 		Action.add(new ManageAction(model));
+		Action.add(new ExploreAction(model));
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
