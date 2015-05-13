@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="x" uri="http://java.sun.com/jstl/xml" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jstl/sql" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,11 +27,13 @@
 
 	<nav id="nav">
 	<ul class="container">
-		<li><a href="manage.do">Home</a></li>
+		<li><a href="index.html">Home</a></li>
 		<li><a href="privacypolicy.htm">Privacy Policy</a></li>
 		<li class="navPullRight"><a class="navSet" href="#popupSet"
 			data-rel="popup" data-role="button" data-inline="true"
 			data-transition="slideup" data-icon="gear" data-theme="a"></a></li>
+			
+		
 		<li class="navPullRight" style="font-size: 15px;"><a
 			href="#popupReg" data-rel="popup" data-position-to="window"
 			data-role="button" data-inline="true" data-theme="a"
@@ -36,6 +42,8 @@
 			href="#popupLogin" data-rel="popup" data-position-to="window"
 			data-role="button" data-inline="true" data-theme="a"
 			data-transition="pop">Sign in</a></li>
+			
+		
 	</ul>
 	</nav>
 
