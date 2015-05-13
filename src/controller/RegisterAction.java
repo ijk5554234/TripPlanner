@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import model.Model;
 import model.UserDAO;
 
+import org.apache.http.HttpRequest;
 import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
@@ -30,10 +32,6 @@ public class RegisterAction extends Action {
 	}
 
 	public String perform(HttpServletRequest request) {
-		UserBean user = (UserBean) request.getSession(false).getAttribute("user");
-		if (user == null) {
-			return "employee_login.do";
-		}
 		try {
 
 			List<String> errors = new ArrayList<String>();
@@ -41,28 +39,31 @@ public class RegisterAction extends Action {
 
 			RegisterForm form = (RegisterForm) formBeanFactory.create(request);
 
-			if (!form.isPresent()) return "register.jsp";
+			if (!form.isPresent()) return "manage.do";
 
 			errors.addAll(form.getValidationErrors());
 
 			if (errors.size() != 0) {
-				return "register.jsp";
+				return "manage.do";
 			}
 
 			UserBean[] cb = userDAO.match(MatchArg.equals("userName", form.getUserName()));
 			if (cb.length != 0) {
-				errors.add("Email already exists.");
-				return "register.jsp";
+				errors.add("Username already exists.");
+				return "manage.do";
 			}
 
-			UserBean customer = new UserBean();
-			customer.setUserName(form.getUserName());
-			customer.setFirstName(form.getFirstName());
-			customer.setLastName(form.getLastName());
-			customer.setPassword(form.getPassword());
-			request.setAttribute("msg", "Account for " + customer.getFirstName() + " " + customer.getLastName() + " has been created");
+			UserBean user = new UserBean();
+			user.setUserName(form.getUserName());
+			user.setFirstName(form.getFirstName());
+			user.setLastName(form.getLastName());
+			user.setPassword(form.getPassword());
+			request.setAttribute("msg", "Account for " + user.getFirstName() + " " + user.getLastName() + " has been created");
 			
-			userDAO.create(customer);
+			userDAO.create(user);
+			System.out.println(user.getFirstName());
+	        HttpSession session = request.getSession(false);
+	        session.setAttribute("user",user);
 		} catch (RollbackException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,7 +72,7 @@ public class RegisterAction extends Action {
 			e.printStackTrace();
 		}
 
-		return "index.jsp";
+		return "manage.do";
 
 	}
 }

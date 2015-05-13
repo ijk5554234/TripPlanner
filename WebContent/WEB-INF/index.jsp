@@ -69,8 +69,8 @@
 						data-theme="a"> <label for="pw"
 						class="ui-hidden-accessible">Password:</label> <input type="text"
 						name="user" id="un" value="" placeholder="password" data-theme="a">
-					<label for="pw" class="ui-hidden-accessible">Re-Passowrd:</label> <input
-						type="password" name="pass" id="pw" value=""
+					<label for="pw" class="ui-hidden-accessible">Re-Password:</label> <input
+						type="password" name="password" id="pw" value=""
 						placeholder="re-password" data-theme="a">
 					<button type="submit" data-theme="b" data-icon="check">Register</button>
 				</div>

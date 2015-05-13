@@ -16,6 +16,7 @@ public class RegisterForm extends FormBean {
 	private String firstName;
 	private String lastName;
 	private String password;
+	private String rePass;
 	private String action;
 	
 	public void setUserName(String s)  { userName   = trimAndConvert(s,"<>\""); }
@@ -23,11 +24,13 @@ public class RegisterForm extends FormBean {
 	public void setLastName(String s)  { lastName   = trimAndConvert(s,"<>\""); }	
 	public void setAction(String s)    { action     = trimAndConvert(s,"<>\"");	}
 	public void setPassword(String s)  { password   = trimAndConvert(s,"<>\"");	}
+	public void setRePass(String s)    { rePass     = trimAndConvert(s,"<>\"");	}
 	
 	public String getUserName()  { return userName;	 }
 	public String getFirstName() { return firstName; }
     public String getLastName()  { return lastName;  }
 	public String getPassword()  { return password;  }
+	public String getRePass()    { return rePass;    }
 	public String getAction()    { return action;    }
 
 
@@ -42,13 +45,10 @@ public class RegisterForm extends FormBean {
 			errors.add("Last Name is required");
 		if (firstName == null || firstName.trim().length() == 0)
 			errors.add("First Name is required");
-		if (action == null)
-			errors.add("Button is required");
-		if (errors.size() > 0)
+		if (password.equals(rePass)) {
+			errors.add("Password and rePass are different.");
+		}
 			return errors;
-		if (!action.equals("Create Employee")) 
-			errors.add("Invalid button");
 
-		return errors;
 	}
 }

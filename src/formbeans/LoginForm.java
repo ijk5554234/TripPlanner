@@ -31,14 +31,10 @@ public class LoginForm extends FormBean{
 			errors.add("UserName is required");
 		if (password == null || password.length() == 0)
 			errors.add("Password is required");
-		if (action == null)
-			errors.add("Button is required");
 
 		if (errors.size() > 0)
 			return errors;
 
-		if (!action.equals("Login"))
-			errors.add("Invalid button");
 		return errors;
 	}
 }

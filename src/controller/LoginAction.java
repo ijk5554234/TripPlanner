@@ -42,10 +42,9 @@ public class LoginAction extends Action {
 			LoginForm form = formBeanFactory.create(request);
 
 			if (!form.isPresent()) {
-				System.out.println("1");
 				return "manage.do";
 			}
-
+			System.out.println("11");
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
 				request.setAttribute("errors", errors);
@@ -54,7 +53,7 @@ public class LoginAction extends Action {
 
 			// Look up the user
 			UserBean userBean = userDAO.read(form.getUserName());
-			
+			System.out.println("2");
 
 			if (userBean == null) {
 				errors.add("UserName not found");

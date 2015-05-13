@@ -23,7 +23,7 @@ public class LogoutAction extends Action {
 
 	public String perform(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        session.setAttribute("employee",null);
+        session.setAttribute("user",null);
         
         request.setAttribute("message","You've successfully logged out!");
 
