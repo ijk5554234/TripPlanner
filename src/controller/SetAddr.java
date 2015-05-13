@@ -15,15 +15,15 @@ import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
-public class SetHomeAction extends Action {
+public class SetAddr extends Action {
 	private UserDAO userDAO;
 
-	public SetHomeAction(Model model) {
+	public SetAddr(Model model) {
 		userDAO = model.getUserDAO();
 	}
 
 	public String getName() {
-		return "sethome.do";
+		return "setAddr.do";
 	}
 
 	public String perform(HttpServletRequest request) {
@@ -34,7 +34,7 @@ public class SetHomeAction extends Action {
 
 			if (errors.size() != 0) {
 				request.setAttribute("errors", errors);
-				return "login.jsp";
+				return "manage.do";
 			}
 			HttpSession session = request.getSession();
 			
@@ -42,13 +42,17 @@ public class SetHomeAction extends Action {
 			
 			
 			String home = request.getParameter("home");
+			if (home != null && home.length() != 0) {
+				userDAO.setHome(user.getUserName(), home);
+			}
 			
-			
-			userDAO.setHome(user.getUserName(), home);
-						
+			String work = request.getParameter("work");
+			if (work != null && home.length() != 0) {
+				userDAO.setWork(user.getUserName(), work);
+			}			
 
 			session.setAttribute("user", user);
-
+			return "manage.do";
 
 		} catch (RollbackException e) {
 			e.printStackTrace();
