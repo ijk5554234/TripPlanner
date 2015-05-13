@@ -58,7 +58,7 @@ public class Controller extends HttpServlet {
 		UserBean user = (UserBean) session.getAttribute("user");
 		String action = getActionName(servletPath);
 		if (user != null) System.out.print(user.getFirstName());
-		System.out.println("first:" + action);
+		System.out.println("Action:" + action);
 
 		if (action.equals("welcome")) {
 			// User is logged in, but at the root of our web app
