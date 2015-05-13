@@ -29,7 +29,7 @@ public class Controller extends HttpServlet {
 		Action.add(new LogoutAction(model));
 		Action.add(new ChangePswAction(model));
 		Action.add(new SetAddr(model));
-		Action.add(new SetWorkAction(model));
+		Action.add(new CheckFareAction(model));
 		Action.add(new ManageAction(model));
 		Action.add(new ExploreAction(model));
 	}
