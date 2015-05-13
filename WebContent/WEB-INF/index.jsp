@@ -61,13 +61,13 @@
 	<div data-role="popup" id="popupMenu" data-theme="a">
 		<div data-role="popup" id="popupReg" data-theme="a"
 			class="ui-corner-all">
-			<form>
+			<form action="register.do">
 				<div style="padding: 10px 20px;">
 					<h3>Register Here</h3>
 					<label for="un" class="ui-hidden-accessible">Username:</label> <input
 						type="text" name="user" id="un" value="" placeholder="username"
-						data-theme="a"> <label for="pw"
-						class="ui-hidden-accessible">Password:</label> <input type="text"
+						data-theme="a"> 
+					<label for="pw" class="ui-hidden-accessible">Password:</label> <input type="text"
 						name="user" id="un" value="" placeholder="password" data-theme="a">
 					<label for="pw" class="ui-hidden-accessible">Re-Password:</label> <input
 						type="password" name="password" id="pw" value=""
