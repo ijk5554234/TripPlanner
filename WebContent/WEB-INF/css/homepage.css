@@ -1,0 +1,153 @@
+/*********************************************************************************/
+/* Nav                                                                           */
+/*********************************************************************************/
+
+	#nav
+	{
+		background-color: #282828;
+		text-align: ;
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		z-index: 1;
+		cursor: default;
+
+
+	}
+	
+		#nav ul
+		{	
+			left: 10em;
+			margin-bottom: 0;
+			margin-top: 0;
+		}
+	
+		#nav li
+		{
+			display: inline-block;
+		}
+
+
+		#nav a:hover
+		{
+			background: #383838;
+		}
+		
+		#nav a:active
+		{
+			background: #484848;
+		}
+	
+		#nav a
+		{
+			padding: 0.2em 1em 0.2em 1em;
+			margin: 0.6em 0.2em 0.6em 0.2em;
+			font-weight: 600;
+			border-radius: 8px;
+			-moz-transition: background-color .2s ease-in-out;
+			-webkit-transition: background-color .2s ease-in-out;
+			-o-transition: background-color .2s ease-in-out;
+			-ms-transition: background-color .2s ease-in-out;
+			transition: background-color .2s ease-in-out;
+			color: #fff;
+			display: block;
+			color: #fff;
+			text-decoration: none;
+			outline: 0;
+		}
+
+
+/* Map */
+#map_canvas {
+	top : 30px;
+	left:190px;
+	width:700px; 
+	height:400px;
+	bottom: 30px;
+	padding-bottom: 30px;
+
+}
+
+
+
+
+
+/* Container */
+
+
+	.container {
+		width: 900px;
+		margin-left: 1.5em;
+		margin-right: auto;
+		top:0;
+	}
+
+	/* Modifiers */
+	
+		.container.small {
+			width: 900px;
+		}
+
+		.container.big {
+			width: 100%;
+			max-width: 1500px;
+			min-width: 1200px;
+		}
+
+/* Wrapper */ 
+.wrapper
+	{	
+		background-color: #444;
+		border-top: 12px;
+		padding-top: 12px;
+		box-shadow: inset 0px 1px 0px 0px rgba(0,0,0,0.05), inset 0px 2px 3px 0px rgba(0,0,0,0.1);
+	}
+.ui-top {
+	border-top: 3.5em;
+	padding-top: 3.5em;
+
+}
+
+.navPullRight {
+  color : #0000;
+  padding-top: 0em;
+  display: inline-block;
+  float: right !important;
+
+}
+
+.navSet {
+  height: 18px;
+  width: 10px;
+  padding-top: 0em;
+  display: inline-block;
+  float: right !important;
+
+}
+
+
+
+
+
+/* Input Box */
+.inputSearch {
+	width : 100px!important;
+
+}
+
+.inputFrom {
+	width : 100px;
+}
+
+.inputTo {
+	width : 1px ;
+}
+
+
+/* Others */
+.pull-left {
+  float: left !important;
+}
+
+
