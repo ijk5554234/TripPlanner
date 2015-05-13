@@ -23,7 +23,7 @@
 
 	<nav id="nav">
 	<ul class="container">
-		<li><a href="index.html">Home</a></li>
+		<li><a href="manage.do">Home</a></li>
 		<li><a href="privacypolicy.htm">Privacy Policy</a></li>
 		<li class="navPullRight"><a class="navSet" href="#popupSet"
 			data-rel="popup" data-role="button" data-inline="true"
