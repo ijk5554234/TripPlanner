@@ -1,4 +1,9 @@
-
+/*
+ * Team 4
+ * Task 13
+ * Date: May 214, 2015
+ * Only for educational use
+ */
 package controller;
 
 import java.util.ArrayList;

@@ -1,3 +1,9 @@
+/*
+ * Team 4
+ * Task 13
+ * Date: May 214, 2015
+ * Only for educational use
+ */
 package controller;
 
 
@@ -10,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import model.Model;
 import model.UserDAO;
 
-import org.apache.http.HttpRequest;
 import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;

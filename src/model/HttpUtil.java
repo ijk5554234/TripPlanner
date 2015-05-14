@@ -1,3 +1,9 @@
+/*
+ * Team 4
+ * Task 13
+ * Date: May 214, 2015
+ * Only for educational use
+ */
 package model;
 
 import java.io.IOException;
@@ -14,8 +20,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class HttpUtil {
-	private HttpClient mClient;
-	private HttpResponse mRes = null;
+	private HttpClient client;
+	private HttpResponse response = null;
 	private String method, url;
 	private JSONObject data;
 	private static final String errorMessage = "Something wrong!";
@@ -27,16 +33,14 @@ public class HttpUtil {
 	}
 
 	public void excute() {
-		mClient = HttpClientBuilder.create().build();
+		client = HttpClientBuilder.create().build();
 		try {
-			switch (method) {
-			case "GET":
-				mRes = mClient.execute(new HttpGet(url));
-				break;
-			case "POST":
-				mRes = mClient.execute(new HttpPost(url));
-			}
-			data = new JSONObject(EntityUtils.toString(mRes.getEntity()));
+			if (method.equals("GET")) {
+				response = client.execute(new HttpGet(url));
+			} else
+				response = client.execute(new HttpPost(url));
+
+			data = new JSONObject(EntityUtils.toString(response.getEntity()));
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -47,23 +51,22 @@ public class HttpUtil {
 			e.printStackTrace();
 		}
 	}
-	
 
 	private boolean checkValid() {
-		return mRes == null || data == null;
+		return response == null || data == null;
 	}
 
 
 	public String getStatus() {
 		if (checkValid())
 			return errorMessage;
-		return mRes.getStatusLine().toString();
+		return response.getStatusLine().toString();
 	}
 
 	public String getStatusCode() {
 		if (checkValid())
 			return errorMessage;
-		return Integer.valueOf(mRes.getStatusLine().getStatusCode()).toString();
+		return Integer.valueOf(response.getStatusLine().getStatusCode()).toString();
 	}
 
 	public String getMessage() {

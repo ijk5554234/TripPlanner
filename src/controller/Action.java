@@ -1,8 +1,8 @@
 /*
-Team 5
-Task 7
-Date: Jan. 28, 2015
-Only for educational use
+ * Team 4
+ * Task 13
+ * Date: May 214, 2015
+ * Only for educational use
  */
 package controller;
 
@@ -26,7 +26,7 @@ public abstract class Action {
 
 	public static void add(Action a) {
 		synchronized (hash) {
-			if (hash.get(a.getName()) != null) {	
+			if (hash.get(a.getName()) != null) {
 				throw new AssertionError("Two actions with the same name ("
 						+ a.getName() + "): " + a.getClass().getName()
 						+ " and " + hash.get(a.getName()).getClass().getName());

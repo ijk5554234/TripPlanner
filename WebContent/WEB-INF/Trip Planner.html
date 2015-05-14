@@ -182,7 +182,7 @@
         <div class="ui-field-contain">
           <label for="from">From:</label> <input id="origin" type="text"
             value="" placeholder="Current Location"> <label for="to">To:</label>
-          <input id="destination" type="text" value="" placeholder="">
+          <input id="destination" type="text" value="${dest}" placeholder="">
         </div>
         <input id="inputSearch" type="submit" data-block="true"
           value="Search">
@@ -195,9 +195,10 @@
 
     <form method="post" action="takePlace.asp">
       <div class="ui-field-contain">
-        <a href="#busLocator" class="ui-btn ui-btn-inline"
+        <a href="takeHome.do" class="ui-btn ui-btn-inline"
           style="width: 70%; line-height: 30px; height: 30px">Take me
-          Home</a> <a href="#busLocator" class="ui-btn ui-btn-inline"
+          Home</a> 
+          <a href="takeWork.do" class="ui-btn ui-btn-inline"
           style="width: 70%; line-height: 30px; height: 30px">Take me
           work</a>
       </div>

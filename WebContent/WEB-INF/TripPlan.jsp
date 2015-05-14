@@ -2,11 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Explore</title>
+<title>Trip Planner</title>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/homepage.css" />
@@ -21,9 +20,118 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script
 	src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+<style>
+#results {
+	font-family: Arial, Helvetica, sans-serif;
+	position: absolute;
+	right: 5px;
+	top: 50%;
+	margin-top: -195px;
+	height: 380px;
+	width: 200px;
+	padding: 5px;
+	z-index: 5;
+	border: 1px solid #999;
+	background: #fff;
+}
+</style>
+<script type="text/javascript">
+  var directionDisplay;
+  var currentLocation;
+  var geocoder;
+  var schedule;
+  var directionsService = new google.maps.DirectionsService();
+  $(document).ready(function()
+      {
+        navigator.geolocation.getCurrentPosition(initialize);
+      });
+
+  function initialize(location) {
+    currentLocation = new google.maps.LatLng(location.coords.latitude, location.coords.longitude)
+    
+    directionsDisplay = new google.maps.DirectionsRenderer();
+
+    geocoder = new google.maps.Geocoder();
+   
+
+ 
+  geocoder.geocode({'latLng': currentLocation}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      if (results[1]) {     
+         document.getElementById("origin").value = results[1].formatted_address;
+  
+      } else {
+        alert('No results found');
+      }
+    } else {
+      alert('Geocoder failed due to: ' + status);
+    }
+  });
+  
+
+
+    var myOptions = {
+      zoom: 14,
+      center: currentLocation,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: false
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+    directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById("directionsPanel"));
+    var marker = new google.maps.Marker({
+      position: currentLocation, 
+      map: map, 
+      title:"My location"
+    }); 
+  }
+
+  function calcRoute() {
+
+    var end = document.getElementById("destination").value;
+    var start = document.getElementById("origin").value;
+    var request = {
+      origin:start,
+      destination:end,
+      travelMode: google.maps.DirectionsTravelMode.TRANSIT
+    };
+    directionsService.route(request, function(response, status) {
+     if (status == google.maps.DirectionsStatus.OK) {
+    directionsDisplay.setDirections(response);
+  }else{
+
+      if (status == 'ZERO_RESULTS') {
+        alert('No route could be found between the origin and destination.');
+      } else if (status == 'UNKNOWN_ERROR') {
+        alert('A directions request could not be processed due to a server error. The request may succeed if you try again.');
+      } else if (status == 'REQUEST_DENIED') {
+        alert('This webpage is not allowed to use the directions service.');
+      } else if (status == 'OVER_QUERY_LIMIT') {
+        alert('The webpage has gone over the requests limit in too short a period of time.');
+      } else if (status == 'NOT_FOUND') {
+        alert('At least one of the origin, destination, or waypoints could not be geocoded.');
+      } else if (status == 'INVALID_REQUEST') {
+        alert('The DirectionsRequest provided was invalid.');         
+      } else {
+        alert("There was an unknown error in your request. Requeststatus: nn"+status);
+      }
+    }
+    });
+
+
+  schedule = document.getElementById('schedules');
+
+  schedule.innerHTML=  '<Li>' + "71A      Arrives in 10 Min" + '</Li>';
+  schedule.innerHTML +=  '<Li>' + "71A      Arrives in 25 Min:" + '</Li>';
+  schedule.innerHTML +=  '<Li>' + "82      Arrives in 3 Min" + '</Li>';
+  schedule.innerHTML +=  '<Li>' + "82      Arrives in 10 Min" + '</Li>';
+  schedule.innerHTML +=  '<Li>' + "71C      Arrives in 30 Min" + '</Li>';
+  }
+
+  </script>
 </head>
-<body>
-<!------------------------------ Navigation Bar Start------------------------------>
+<body onload="initialize()">
+	<!------------------------------ Navigation Bar Start------------------------------>
 	<div data-role="navbar">
 	<ul>
 		<li><a href="manage.do"  data-position-to="window" data-role="button" data-inline="true">Home</a></li>
@@ -62,7 +170,7 @@
 	<div data-history="false" data-role="popup" id="popupMenu" data-theme="a">
 		<div data-history="false" data-role="popup" id="popupLogin" data-theme="a"
 			class="ui-corner-all">
-			<form action="login.do" METHOD="POST">
+			<form action="login.do">
 				<div style="padding: 10px 20px;">
 					<h3>Please sign in</h3>
 					<label for="un" class="ui-hidden-accessible">UserName:</label> <input
@@ -125,34 +233,42 @@
 		</div>
 	</div>
 <!------------------------------ Navigation Bar End------------------------------>
-	
-	<div data-role="content" data-theme="a" id="homePage">
+
+	<div data-theme="a" id="tripPlanner">
 
 		<div data-role="picture" class="ui-top" align="center">
-			<img src="img/paac.jpg" alt="logo" align="middle"
-				style="width: 60%; height: 60%">
-						<jsp:include page="error-list.jsp" />
-				
+			<form method="post" action="/routebeschrijving"
+				onsubmit="calcRoute();return false;" id="routeForm">
+				<div class="ui-field-contain">
+					<label for="from">From:</label> <input id="origin" type="text"
+						value="" placeholder="Current Location"> <label for="to">To:</label>
+					<input id="destination" type="text" value="${dest}" placeholder="">
+				</div>
+				<input id="inputSearch" type="submit" data-block="true"
+					value="Search">
+			</form>
 		</div>
 
-		<div data-role="Enter" class="ui-content" align="center">
-			<a rel="external" href="TripPlan.do"
-				class="ui-btn ui-btn-inline"
-				style="width: 100%; line-height: 50px; height: 50px">Trip Planner</a>
-			<a rel="external" href="getTime.do"
-				class="ui-btn ui-btn-inline"
-				style="width: 100%; line-height: 50px; height: 50px">Bus Checker</a>
-			<a rel="external" href="checkFare.do"
-				class="ui-btn ui-btn-inline"
-				style="width: 100%; line-height: 50px; height: 50px">Fare Checker</a>
-			<a rel="external" href="explore.do"
-				class="ui-btn ui-btn-inline"
-				style="width: 100%; line-height: 50px; height: 50px">Exploration</a> <br>
-		</div>
-
-		<div data-role="footer" data-position="">
-			<h1>CMU eBiz</h1>
-		</div>
+		<div id="map_canvas"></div>
+		
+ 	<!-- 	<div id="results">
+			<h2>Bus Schedule</h2>
+			<ul id="schedules"></ul>
+		</div> --> 
+		
+		<br>
+		<br>
+		<div id="directionsPanel" style="background:white;"></div>
+		<br>
+		<form method="post" action="takePlace.asp">
+			<div class="ui-field-contain">
+			
+				<a href="takeHome.do" class="ui-btn ui-btn-inline"
+					style="width: 100%;">Take me home</a> 
+				<a href="takeWork.do" class="ui-btn ui-btn-inline"
+					style="width: 100%;">Take me work</a>
+			</div>
+		</form>
 	</div>
 </body>
 </html>

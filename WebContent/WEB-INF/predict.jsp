@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
-
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Explore</title>
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
 <link rel="stylesheet" href="css/homepage.css" />
 <link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
 <link rel="stylesheet" href="css/theme-classic.css" />
@@ -21,6 +19,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script
 	src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+
 </head>
 <body>
 <!------------------------------ Navigation Bar Start------------------------------>
@@ -62,7 +61,7 @@
 	<div data-history="false" data-role="popup" id="popupMenu" data-theme="a">
 		<div data-history="false" data-role="popup" id="popupLogin" data-theme="a"
 			class="ui-corner-all">
-			<form action="login.do" METHOD="POST">
+			<form action="login.do">
 				<div style="padding: 10px 20px;">
 					<h3>Please sign in</h3>
 					<label for="un" class="ui-hidden-accessible">UserName:</label> <input
@@ -125,34 +124,34 @@
 		</div>
 	</div>
 <!------------------------------ Navigation Bar End------------------------------>
-	
-	<div data-role="content" data-theme="a" id="homePage">
-
-		<div data-role="picture" class="ui-top" align="center">
-			<img src="img/paac.jpg" alt="logo" align="middle"
-				style="width: 60%; height: 60%">
-						<jsp:include page="error-list.jsp" />
+	<form action = getTime.do>
+		<div style="padding: 50px 20px;">
+			<h3>Choose your Bus Line</h3>
+			
+			<label for="un" class="ui-hidden-accessible">BusLine:</label> <input
+				type="text" name="route" id="un" value="${route}"
+				placeholder="Input Bus Line Here" data-theme="a">
+			
+			<label><input type="checkbox" data-theme="a" name="inbound" value="inbound" /> From downtown </label>		
+			<input type="submit" value="Get bus stop" >
+			
+			<h3>Choose your Bus Stop</h3>
+					
+			<label for="pw" class="ui-hidden-accessible">BusStop:</label>
+			<label><input type="checkbox" data-theme="a" name="inbound" value="inbound" /> From nearest bus stop </label>		
 				
-		</div>
-
-		<div data-role="Enter" class="ui-content" align="center">
-			<a rel="external" href="TripPlan.do"
-				class="ui-btn ui-btn-inline"
-				style="width: 100%; line-height: 50px; height: 50px">Trip Planner</a>
-			<a rel="external" href="getTime.do"
-				class="ui-btn ui-btn-inline"
-				style="width: 100%; line-height: 50px; height: 50px">Bus Checker</a>
-			<a rel="external" href="checkFare.do"
-				class="ui-btn ui-btn-inline"
-				style="width: 100%; line-height: 50px; height: 50px">Fare Checker</a>
-			<a rel="external" href="explore.do"
-				class="ui-btn ui-btn-inline"
-				style="width: 100%; line-height: 50px; height: 50px">Exploration</a> <br>
-		</div>
-
-		<div data-role="footer" data-position="">
-			<h1>CMU eBiz</h1>
-		</div>
-	</div>
+				
+				
+			<select name="stopId">
+				 
+				<c:forEach var="s" items="${stops}">
+   				<option value="${s.getStopId()}"> ${s.getStopName()}</option>
+   
+                </c:forEach>
+			</select> 
+			<input type="submit" value="Get arrival time" >
+			
+			<h3>${time}</h3>
+	</form>
 </body>
 </html>

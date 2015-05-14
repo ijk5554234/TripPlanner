@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -75,7 +76,17 @@
     var placeLoc = place.geometry.location;
     var marker = new google.maps.Marker({
       map : map,
-      position : place.geometry.location
+      position : place.geometry.location,
+      icon: {
+          // Star
+          path: 'M 0,-24 6,-7 24,-7 10,4 15,21 0,11 -15,21 -10,4 -24,-7 -6,-7 z',
+          fillColor: '#ffff00',
+          fillOpacity: 1,
+          scale: 2/3,
+          strokeColor: '#bd8d2c',
+          strokeWeight: 1
+        }
+      
     });
 
     google.maps.event.addListener(marker, 'click', function() {
@@ -88,92 +99,135 @@
 </script>
 </head>
 <body onload="initialize()">
-  <nav id="nav">
-    <ul class="container">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="privacypolicy.htm">Privacy Policy</a></li>
-      <li class="navPullRight"><a class="navSet" href="#popupSet"
-        data-rel="popup" data-role="button" data-inline="true"
-        data-transition="slideup" data-icon="gear" data-theme="a"></a></li>
-      <li class="navPullRight" style="font-size: 15px;"><a
-        href="#popupReg" data-rel="popup" data-position-to="window"
-        data-role="button" data-inline="true" data-theme="a"
-        data-transition="pop">Register</a></li>
-      <li class="navPullRight" style="font-size: 15px;"><a
-        href="#popupLogin" data-rel="popup" data-position-to="window"
-        data-role="button" data-inline="true" data-theme="a"
-        data-transition="pop">Sign in</a></li>
-    </ul>
-  </nav>
 
-  <div data-role="popup" id="popupMenu" data-theme="a">
-    <div data-role="popup" id="popupLogin" data-theme="a"
-      class="ui-corner-all">
-      <form>
-        <div style="padding: 10px 20px;">
-          <h3>Please sign in</h3>
-          <label for="un" class="ui-hidden-accessible">Username:</label> <input
-            type="text" name="user" id="un" value="" placeholder="username"
-            data-theme="a"> <label for="pw"
-            class="ui-hidden-accessible">Password:</label> <input
-            type="password" name="pass" id="pw" value=""
-            placeholder="password" data-theme="a">
-          <button type="submit" data-theme="b" data-icon="check">Sign
-            in</button>
-        </div>
-      </form>
-    </div>
-  </div>
+<!------------------------------ Navigation Bar Start------------------------------>
+	<div data-role="navbar">
+	<ul>
+		<li><a href="manage.do"  data-position-to="window" data-role="button" data-inline="true">Home</a></li>
+		<li><a rel="external" href="PrivacyAction.do"  data-position-to="window" data-role="button" data-inline="true">Privacy Policy</a></li>
+		<c:choose>
+			<c:when test="${(!empty user)}">
 
-  <div data-role="popup" id="popupMenu" data-theme="a">
-    <div data-role="popup" id="popupReg" data-theme="a"
-      class="ui-corner-all">
-      <form>
-        <div style="padding: 10px 20px;">
-          <h3>Register Here</h3>
-          <label for="un" class="ui-hidden-accessible">Username:</label> <input
-            type="text" name="user" id="un" value="" placeholder="username"
-            data-theme="a"> <label for="pw"
-            class="ui-hidden-accessible">Password:</label> <input type="text"
-            name="user" id="un" value="" placeholder="password" data-theme="a">
-          <label for="pw" class="ui-hidden-accessible">Re-Passowrd:</label> <input
-            type="password" name="pass" id="pw" value=""
-            placeholder="re-password" data-theme="a">
-          <button type="submit" data-theme="b" data-icon="check">Register</button>
-        </div>
-      </form>
-    </div>
-  </div>
+				<li >
+					<a href="#popupSet" data-rel="popup" data-position-to="window" data-role="button" data-inline="true"
+					data-transition="slideup" data-theme="a">Setting</a>
+				</li>
+				<li>
+					<form action="logout.do">	
+						<button type="submit" data-transition="slideup" data-inline="true" data-theme="a">Logout
+					</form>
+				</li>
+				 
+				<li>
+				<a href="#" data-position-to="window" data-role="button" data-inline="true"
+					data-transition="slideup" data-theme="b">Welcome, ${user.firstName} ${user.lastName}!</a>
+				</li>
+				
+			</c:when>
+			<c:otherwise>
+				<li><a
+					href="#popupLogin" data-rel="popup" data-position-to="window"
+					data-role="button" data-inline="true" data-theme="a"
+					data-transition="pop">Sign in</a></li>
+				<li><a href="#popupReg" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-theme="a"
+					data-transition="pop">Register</a></li>
+			</c:otherwise>	
+		</c:choose>
+	</ul>
+	</div>
 
-  <div data-role="popup" id="popupMenu" data-theme="a">
-    <div data-role="popup" id="popupSet" data-theme="a"
-      class="ui-corner-all">
-      <form>
-        <div style="padding: 10px 20px;">
-          <h3>Input your information</h3>
-          <label for="un" class="ui-hidden-accessible">Home Adress:</label> <input
-            type="text" name="user" id="un" value="" placeholder="Home Adress"
-            data-theme="a"> <label for="pw"
-            class="ui-hidden-accessible">Work Place Address:</label> <input
-            type="text" name="user" id="un" value=""
-            placeholder="Work Place Address" data-theme="a">
-          <button type="submit" data-theme="b" data-icon="check">Confirm</button>
-        </div>
-      </form>
-    </div>
-  </div>
-  <div data-role="picture" class="ui-top" align="center">
+	<div data-history="false" data-role="popup" id="popupMenu" data-theme="a">
+		<div data-history="false" data-role="popup" id="popupLogin" data-theme="a"
+			class="ui-corner-all">
+			<form action="login.do">
+				<div style="padding: 10px 20px;">
+					<h3>Please sign in</h3>
+					<label for="un" class="ui-hidden-accessible">UserName:</label> <input
+						type="text" name="userName" id="un" value="${form.userName}"
+						placeholder="username" data-theme="a"> <label for="pw"
+						class="ui-hidden-accessible">Password:</label> <input
+						type="password" name="password" id="pw" value="${form.password}"
+						placeholder="password" data-theme="a">
+					<button type="submit" data-theme="b" data-icon="check">Sign
+						in</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div data-history="false" data-role="popup" id="popupMenu" data-theme="a">
+		<div  data-history="false" data-role="popup" id="popupReg" data-theme="a"
+			class="ui-corner-all">
+			<form action="register.do">
+				<div style="padding: 10px 20px;">
+					<h3>Register Here</h3>
+					
+					<label for="userName" class="ui-hidden-accessible">User Name:</label> 
+					<input type="text" name="userName" id="userName" value="${form.userName}" placeholder="username" data-theme="a"> 
+						
+					<label for="firstName" class="ui-hidden-accessible">First Name:</label> 
+					<input type="text"	name="firstName" id="firstName" value="${form.firstName}" placeholder="First Name" data-theme="a">
+					
+					<label for="lastName" class="ui-hidden-accessible">Last Name:</label> 
+					<input type="text"	name="lastName" id="lastName" value="${form.lastName}" placeholder="Last Name" data-theme="a">
+					
+					<label for="password" class="ui-hidden-accessible">Password:</label>
+				    <input type="text" name="password" id="password" value="${form.password}" placeholder="password" data-theme="a"> 
+				    
+				    <label for="rePass" class="ui-hidden-accessible">Re-Password:</label> 
+				    <input type="text" name="rePass" id="rePass" value="${form.rePass}" placeholder="re-password" data-theme="a">
+				
+					
+					<button type="submit" data-theme="b" data-icon="check">Register</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div data-role="popup" id="popupMenu" data-theme="a">
+		<div data-role="popup" id="popupSet" data-theme="a"
+			class="ui-corner-all">
+			<form action = "setAddr.do">
+				<div style="padding: 10px 20px;">
+					<h3>Input your information</h3>
+					<label for="home" class="ui-hidden-accessible">Home Adress:</label> <input
+						type="text" name="home" id="home" value="${form.home}" placeholder="Home Adress"
+						data-theme="a"> <label for="work"
+						class="ui-hidden-accessible">Work Place Address:</label> <input
+						type="text" name="work" id="work" value="${form.work}"
+						placeholder="Work Place Address" data-theme="a">
+					<button type="submit" data-theme="b" data-icon="check">Confirm</button>
+				</div>
+			</form>
+		</div>
+	</div>
+<!------------------------------ Navigation Bar End------------------------------>
+
+<!--------------------------Content-------------------------->
+<div data-role="fieldcontain">
+    <fieldset data-role="controlgroup" data-type="horizontal">    
+    <legend>Choose an attraction:</legend>
     <form action="" onsubmit="explore();return false;" id="routeForm">
-      <input type="radio" id="r1" name="type" value="store" checked>Store
-      <br> <input type="radio" id="r2" name="type" value="restaurant">Restaurant
-      <br> <input type="radio" id="r3" name="type" value="park">Park
-      <br> <input type="radio" id="r4" name="type" value="museum">Museum
-      <br> <input type="submit" value="Explore">
+      <input type="radio" id="r1" name="type" value="store" checked>
+      <label for="r1">Store</label>
+      
+      <input type="radio" id="r2" name="type" value="restaurant">
+      <label for="r2">Restaurant</label>
+      
+      <input type="radio" id="r3" name="type" value="park">
+      <label for="r3">Park</label>
+      
+      <input type="radio" id="r4" name="type" value="museum">
+      <label for="r4">Museum</label>
+      <br>
+      <br>
+      <input type="text" id="destination" value="" placeholder="Input your own choice here">
+      <input type="submit" data-block="true" style="display: block" value="Explore">
+	  
     </form>
-    <div id="map-canvas" style="width: 710px; height: 600px"></div>
-  </div>
-  <div data-role="footer" data-position="fixed">
-    <h1>CMU eBiz</h1>
-  </div>
+   	</fieldset>
+ </div>
+ <div id="map-canvas" style=" margin : auto; width: 400px; height: 500px"></div>
+ <br>
 </body>
 </html>

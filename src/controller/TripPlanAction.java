@@ -10,17 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
 import model.Model;
 
-public class ExploreAction extends Action {
+public class TripPlanAction extends Action {
 
-	public ExploreAction(Model model) {
-		
+	public TripPlanAction(Model model) {
 	}
 
 	public String getName() {
-		return "explore.do";
+		return "TripPlan.do";
 	}
 
 	public String perform(HttpServletRequest request) {
@@ -28,6 +26,6 @@ public class ExploreAction extends Action {
 		request.setAttribute("errors", errors);
 
 		
-		return "explore.jsp";
+		return "TripPlan.jsp";
 	}
 }

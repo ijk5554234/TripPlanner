@@ -1,11 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="content-type"
-	content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="css/homepage.css" />
+<link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
+<link rel="stylesheet" href="css/theme-classic.css" />
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script
+	src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript"
+	src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script
+	src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Privacy Policy</title>
 <style>
 #ppBody {
-	font-size: 11pt;
-	width: 100%;
+	font-size: 13pt;
+	width: 90%;
 	margin: 0 auto;
 	text-align: justify;
 }
@@ -13,7 +29,7 @@
 #ppHeader {
 	font-family: verdana;
 	font-size: 21pt;
-	width: 100%;
+	width: 90%;
 	margin: 0 auto;
 }
 
@@ -23,6 +39,108 @@
 </style>
 </head>
 <body>
+<!------------------------------ Navigation Bar Start------------------------------>
+	<div data-role="navbar">
+	<ul>
+		<li><a href="manage.do"  data-position-to="window" data-role="button" data-inline="true">Home</a></li>
+		<li><a rel="external" href="PrivacyAction.do"  data-position-to="window" data-role="button" data-inline="true">Privacy Policy</a></li>
+		<c:choose>
+			<c:when test="${(!empty user)}">
+
+				<li >
+					<a href="#popupSet" data-rel="popup" data-position-to="window" data-role="button" data-inline="true"
+					data-transition="slideup" data-theme="a">Setting</a>
+				</li>
+				<li>
+					<form action="logout.do">	
+						<button type="submit" data-transition="slideup" data-inline="true" data-theme="a">Logout
+					</form>
+				</li>
+				 
+				<li>
+				<a href="#" data-position-to="window" data-role="button" data-inline="true"
+					data-transition="slideup" data-theme="b">Welcome, ${user.firstName} ${user.lastName}!</a>
+				</li>
+				
+			</c:when>
+			<c:otherwise>
+				<li><a
+					href="#popupLogin" data-rel="popup" data-position-to="window"
+					data-role="button" data-inline="true" data-theme="a"
+					data-transition="pop">Sign in</a></li>
+				<li><a href="#popupReg" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-theme="a"
+					data-transition="pop">Register</a></li>
+			</c:otherwise>	
+		</c:choose>
+	</ul>
+	</div>
+
+	<div data-history="false" data-role="popup" id="popupMenu" data-theme="a">
+		<div data-history="false" data-role="popup" id="popupLogin" data-theme="a"
+			class="ui-corner-all">
+			<form action="login.do" METHOD="POST">
+				<div style="padding: 10px 20px;">
+					<h3>Please sign in</h3>
+					<label for="un" class="ui-hidden-accessible">UserName:</label> <input
+						type="text" name="userName" id="un" value="${form.userName}"
+						placeholder="username" data-theme="a"> <label for="pw"
+						class="ui-hidden-accessible">Password:</label> <input
+						type="password" name="password" id="pw" value="${form.password}"
+						placeholder="password" data-theme="a">
+					<button type="submit" data-theme="b" data-icon="check">Sign
+						in</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div data-history="false" data-role="popup" id="popupMenu" data-theme="a">
+		<div  data-history="false" data-role="popup" id="popupReg" data-theme="a"
+			class="ui-corner-all">
+			<form action="register.do">
+				<div style="padding: 10px 20px;">
+					<h3>Register Here</h3>
+					
+					<label for="userName" class="ui-hidden-accessible">User Name:</label> 
+					<input type="text" name="userName" id="userName" value="${form.userName}" placeholder="username" data-theme="a"> 
+						
+					<label for="firstName" class="ui-hidden-accessible">First Name:</label> 
+					<input type="text"	name="firstName" id="firstName" value="${form.firstName}" placeholder="First Name" data-theme="a">
+					
+					<label for="lastName" class="ui-hidden-accessible">Last Name:</label> 
+					<input type="text"	name="lastName" id="lastName" value="${form.lastName}" placeholder="Last Name" data-theme="a">
+					
+					<label for="password" class="ui-hidden-accessible">Password:</label>
+				    <input type="text" name="password" id="password" value="${form.password}" placeholder="password" data-theme="a"> 
+				    
+				    <label for="rePass" class="ui-hidden-accessible">Re-Password:</label> 
+				    <input type="text" name="rePass" id="rePass" value="${form.rePass}" placeholder="re-password" data-theme="a">
+				
+					
+					<button type="submit" data-theme="b" data-icon="check">Register</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div data-role="popup" id="popupMenu" data-theme="a">
+		<div data-role="popup" id="popupSet" data-theme="a"
+			class="ui-corner-all">
+			<form action = "setAddr.do">
+				<div style="padding: 10px 20px;">
+					<h3>Input your information</h3>
+					<label for="home" class="ui-hidden-accessible">Home Adress:</label> <input
+						type="text" name="home" id="home" value="${form.home}" placeholder="Home Adress"
+						data-theme="a"> <label for="work"
+						class="ui-hidden-accessible">Work Place Address:</label> <input
+						type="text" name="work" id="work" value="${form.work}"
+						placeholder="Work Place Address" data-theme="a">
+					<button type="submit" data-theme="b" data-icon="check">Confirm</button>
+				</div>
+			</form>
+		</div>
+	</div>
+<!------------------------------ Navigation Bar End------------------------------>
 	<div id="ppHeader">Privacy Policy</div>
 	<div id="ppBody">
 		<div class="ppConsistencies">
@@ -100,8 +218,7 @@
 		<br>
 		<div class="innerText">We collect information from you when you
 			register on our site or enter information on our site.</div>
-		<br>
-		<span id="infoUs"></span><br>
+		<br> <span id="infoUs"></span><br>
 		<div class="grayText">
 			<strong>How do we use your information? </strong>
 		</div>
@@ -110,20 +227,19 @@
 			We may use the information we collect from you when you register,
 			make a purchase, sign up for our newsletter, respond to a survey or
 			marketing communication, surf the website, or use certain other site
-			features in the following ways:<br>
-			<br>
+			features in the following ways:<br> <br>
 		</div>
 		<div class="innerText">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>•</strong> To personalize
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>â€¢</strong> To personalize
 			user's experience and to allow us to deliver the type of content and
 			product offerings in which you are most interested.
 		</div>
 		<div class="innerText">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>•</strong> To improve our
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>â€¢</strong> To improve our
 			website in order to better serve you.
 		</div>
 		<div class="innerText">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>•</strong> To allow us to
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>â€¢</strong> To allow us to
 			better service you in responding to your customer service requests.
 		</div>
 		<span id="infoPro"></span><br>
@@ -134,12 +250,10 @@
 		<div class="innerText">
 			Our website is scanned on a regular basis for security holes and
 			known vulnerabilities in order to make your visit to our site as safe
-			as possible.<br>
-			<br>
+			as possible.<br> <br>
 		</div>
 		<div class="innerText">
-			We do not use Malware Scanning.<br>
-			<br>
+			We do not use Malware Scanning.<br> <br>
 		</div>
 		<div class="innerText">Your personal information is contained
 			behind secured networks and is only accessible by a limited number of
@@ -174,8 +288,7 @@
 			some of our services will not function properly.</div>
 		<br>
 		<div class="innerText">However, you can still place orders .</div>
-		<br>
-		<span id="trDi"></span><br>
+		<br> <span id="trDi"></span><br>
 		<div class="grayText">
 			<strong>Third Party Disclosure</strong>
 		</div>
@@ -189,10 +302,9 @@
 			this information confidential. We may also release your information
 			when we believe release is appropriate to comply with the law,
 			enforce our site policies, or protect ours or others' rights,
-			property, or safety. <br>
-			<br> However, non-personally identifiable visitor information
-			may be provided to other parties for marketing, advertising, or other
-			uses.
+			property, or safety. <br> <br> However, non-personally
+			identifiable visitor information may be provided to other parties for
+			marketing, advertising, or other uses.
 		</div>
 		<span id="trLi"></span><br>
 		<div class="grayText">
@@ -231,8 +343,7 @@
 			parents in control. The Federal Trade Commission, the nation's
 			consumer protection agency, enforces the COPPA Rule, which spells out
 			what operators of websites and online services must do to protect
-			children's privacy and safety online.<br>
-			<br>
+			children's privacy and safety online.<br> <br>
 		</div>
 		<div class="innerText">We do not specifically market to children
 			under 13.</div>
@@ -257,7 +368,7 @@
 		</div>
 		<div class="innerText">We will notify the users via email</div>
 		<div class="innerText">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>•</strong> Within 7 business
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>â€¢</strong> Within 7 business
 			days
 		</div>
 		<div class="innerText">
@@ -278,16 +389,14 @@
 			The CAN-SPAM Act is a law that sets the rules for commercial email,
 			establishes requirements for commercial messages, gives recipients
 			the right to have emails stopped from being sent to them, and spells
-			out tough penalties for violations.<br>
-			<br>
+			out tough penalties for violations.<br> <br>
 		</div>
 		<div class="innerText">
 			<strong>We collect your email address in order to:</strong>
 		</div>
 		<div class="innerText">
-			<br>
-			<strong>To be in accordance with CANSPAM we agree to the
-				following:</strong>
+			<br> <strong>To be in accordance with CANSPAM we agree
+				to the following:</strong>
 		</div>
 		<div class="innerText">
 			<strong><br>If at any time you would like to
@@ -297,15 +406,15 @@
 		correspondence.
 	</div>
 	<br>
-	<div class="innerText">
+	<div class="innerText" style="padding-left: 20px">
 		If there are any questions regarding this privacy policy you may
-		contact us using the information below.<br>
-		<br>
+		contact us using the information below.<br> <br>
 	</div>
-	<div class="innerText">
+	<div class="innerText" style="padding-left: 20px">
 		<br>Last Edited on 2015-05-11
 	</div>
 	<div
 		id="xunlei_com_thunder_helper_plugin_d462f475-c18e-46be-bd10-327458d045bd"></div>
+</body>
 </body>
 </html>

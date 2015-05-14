@@ -1,22 +1,21 @@
+/*
+ * Team 4
+ * Task 13
+ * Date: May 214, 2015
+ * Only for educational use
+ */
 package controller;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import model.UserDAO;
 import model.Model;
-import databeans.UserBean;
 
-import org.genericdao.RollbackException;
 
 public class CheckFareAction extends Action {
-	private UserDAO userDAO;
 
 	public CheckFareAction(Model model) {
-		userDAO = model.getUserDAO();
+
 	}
 
 	public String getName() {
@@ -24,7 +23,14 @@ public class CheckFareAction extends Action {
 	}
 
 	public String perform(HttpServletRequest request) {
-		
-		return "manage.do";
+		String bus = request.getParameter("bus");
+		if (bus == null)
+			return "FareChecker.jsp";
+		if (bus.toLowerCase().equals("28x")) {
+			request.setAttribute("fare", "Charge of " + bus + " is $3.5");
+		} else {
+			request.setAttribute("fare", "Charge of " + bus + " is $2.5");
+		}
+		return "FareChecker.jsp";
 	}
 }

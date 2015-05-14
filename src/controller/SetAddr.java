@@ -1,3 +1,9 @@
+/*
+ * Team 4
+ * Task 13
+ * Date: May 214, 2015
+ * Only for educational use
+ */
 package controller;
 
 import java.util.ArrayList;
@@ -9,11 +15,7 @@ import javax.servlet.http.HttpSession;
 import model.UserDAO;
 import model.Model;
 import databeans.UserBean;
-import formbeans.LoginForm;
-
 import org.genericdao.RollbackException;
-import org.mybeans.form.FormBeanException;
-import org.mybeans.form.FormBeanFactory;
 
 public class SetAddr extends Action {
 	private UserDAO userDAO;

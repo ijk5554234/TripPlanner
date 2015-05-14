@@ -1,8 +1,8 @@
 /*
-Team 5
-Task 7
-Date: Jan. 28, 2015
-Only for educational use
+ * Team 4
+ * Task 13
+ * Date: May 214, 2015
+ * Only for educational use
  */
 package controller;
 
@@ -25,6 +25,9 @@ public class Controller extends HttpServlet {
 	public void init() throws ServletException {
 		Model model = new Model(getServletConfig());
 		Action.add(new RegisterAction(model));
+		Action.add(new TripPlanAction(model));
+		Action.add(new PrivacyAction(model));
+		Action.add(new GetTimeAction(model));
 		Action.add(new LoginAction(model));
 		Action.add(new LogoutAction(model));
 		Action.add(new ChangePswAction(model));
@@ -32,6 +35,8 @@ public class Controller extends HttpServlet {
 		Action.add(new CheckFareAction(model));
 		Action.add(new ManageAction(model));
 		Action.add(new ExploreAction(model));
+		Action.add(new TakeHomeAction(model));
+		Action.add(new TakeWorkAction(model));
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -60,7 +65,12 @@ public class Controller extends HttpServlet {
 		String action = getActionName(servletPath);
 		if (user != null) System.out.print(user.getFirstName());
 		System.out.println("Action:" + action);
-
+		
+		if (session.getAttribute("policy") == null) {
+			session.setAttribute("policy", "done");
+			return "PrivacyAction.do";
+		}
+		
 		if (action.equals("welcome")) {
 			// User is logged in, but at the root of our web app
 			return Action.perform("manage.do", request);
