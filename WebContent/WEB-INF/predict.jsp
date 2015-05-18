@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/homepage.css" />
 <link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />

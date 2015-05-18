@@ -45,7 +45,7 @@ public class RegisterForm extends FormBean {
 			errors.add("Last Name is required");
 		if (firstName == null || firstName.trim().length() == 0)
 			errors.add("First Name is required");
-		if (password.equals(rePass)) {
+		if (!password.equals(rePass)) {
 			errors.add("Password and rePass are different.");
 		}
 			return errors;

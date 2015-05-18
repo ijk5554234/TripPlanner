@@ -87,8 +87,11 @@
   }
 
   function calcRoute() {
-
-    var end = document.getElementById("destination").value;
+	var end;
+	if (document.getElementById("destination").value.length == 0)
+		end = "222 melwood, pittsburgh";
+	else
+		end = document.getElementById("destination").value;
     var start = document.getElementById("origin").value;
     var request = {
       origin:start,
@@ -131,7 +134,7 @@
   </script>
 </head>
 <body onload="initialize()">
-	<!------------------------------ Navigation Bar Start------------------------------>
+<!------------------------------ Navigation Bar Start------------------------------>
 	<div data-role="navbar">
 	<ul>
 		<li><a href="manage.do"  data-position-to="window" data-role="button" data-inline="true">Home</a></li>
@@ -232,43 +235,43 @@
 			</form>
 		</div>
 	</div>
+	
 <!------------------------------ Navigation Bar End------------------------------>
 
 	<div data-theme="a" id="tripPlanner">
 
 		<div data-role="picture" class="ui-top" align="center">
+		
 			<form method="post" action="/routebeschrijving"
 				onsubmit="calcRoute();return false;" id="routeForm">
 				<div class="ui-field-contain">
 					<label for="from">From:</label> <input id="origin" type="text"
 						value="" placeholder="Current Location"> <label for="to">To:</label>
-					<input id="destination" type="text" value="${dest}" placeholder="">
+					<input id="destination" type="text" value="" placeholder="">
 				</div>
 				<input id="inputSearch" type="submit" data-block="true"
 					value="Search">
 			</form>
+			
+			
 		</div>
-
-		<div id="map_canvas"></div>
 		
- 	<!-- 	<div id="results">
-			<h2>Bus Schedule</h2>
+		<div id="map_canvas" style="margin-left: -40%; width: 300px; height: 500px"></div>
+		<div id="results" style="visibility: hidden">
 			<ul id="schedules"></ul>
-		</div> --> 
+		</div>
 		
 		<br>
 		<br>
 		<div id="directionsPanel" style="background:white;"></div>
 		<br>
-		<form method="post" action="takePlace.asp">
-			<div class="ui-field-contain">
-			
-				<a href="takeHome.do" class="ui-btn ui-btn-inline"
-					style="width: 100%;">Take me home</a> 
+		<form method="post" action="/routebeschrijving"
+				onsubmit="calcRoute();return false;" id="routeForm">
+				<input id="inputSearch" type="submit" data-block="true"
+					value="Take Me Home">
 				<a href="takeWork.do" class="ui-btn ui-btn-inline"
-					style="width: 100%;">Take me work</a>
-			</div>
+					style="width: 100%;">Take Me Work</a>
 		</form>
-	</div>
+	</div>	
 </body>
 </html>

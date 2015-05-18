@@ -26,6 +26,7 @@ public class TakeWorkAction extends Action {
 		HttpSession session = request.getSession();
 
 		UserBean user = (UserBean) session.getAttribute("user");
+		request.setAttribute("curr", "Newell Simon Hall Pittsburgh, PA 15213");
 		request.setAttribute("dest", user.getWork());
 		
 		return "TripPlan.jsp";

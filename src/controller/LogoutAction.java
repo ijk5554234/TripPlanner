@@ -27,6 +27,6 @@ public class LogoutAction extends Action {
         
         request.setAttribute("message","You've successfully logged out!");
 
-        return "mange.do";
+        return "manage.do";
     }
 }

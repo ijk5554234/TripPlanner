@@ -27,10 +27,11 @@ public class TakeHomeAction extends Action {
 		HttpSession session = request.getSession();
 
 		UserBean user = (UserBean) session.getAttribute("user");
+		request.setAttribute("curr", "Newell Simon Hall Pittsburgh, PA 15213");
 		request.setAttribute("dest", user.getHome());
 		System.out.println(user.getHome());
 		
-		return "TripPlan.jsp";
+		return "TripPlan.do";
 
 	}
 }

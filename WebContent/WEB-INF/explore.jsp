@@ -39,31 +39,36 @@
 
   }
 
-  function explore() {
-    initialize();
-    var type;
+  function explore(){
+	  initialize();
+	   var type;
+	   if(document.getElementById("destination").value==""){
+	  if (document.getElementById('r1').checked) {
+	  type = document.getElementById('r1').value;
+	}else if(document.getElementById('r2').checked){
+	  type = document.getElementById('r2').value;
+	}else if(document.getElementById('r3').checked){
+	   type = document.getElementById('r3').value;
+	}else if(document.getElementById('r4').checked){
+	   type = document.getElementById('r4').value;
+	}else{
+	    alert("There was an error in your request.");
+	}
+	}else{
+	  type = document.getElementById("destination").value;
+	}
 
-    if (document.getElementById('r1').checked) {
-      type = document.getElementById('r1').value;
-    } else if (document.getElementById('r2').checked) {
-      type = document.getElementById('r2').value;
-    } else if (document.getElementById('r3').checked) {
-      type = document.getElementById('r3').value;
-    } else if (document.getElementById('r4').checked) {
-      type = document.getElementById('r4').value;
-    } else {
-      alert("There was an error in your request.");
-    }
 
-    var request = {
-      location : pyrmont,
-      radius : 500,
-      types : [ type ]
-    };
-    infowindow = new google.maps.InfoWindow();
-    var service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, callback);
-  }
+
+	   var request = {
+	    location: pyrmont,
+	    radius: 500,
+	    types: [type]
+	  };
+	  infowindow = new google.maps.InfoWindow();
+	  var service = new google.maps.places.PlacesService(map);
+	  service.nearbySearch(request, callback);
+	}
   function callback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       for (var i = 0; i < results.length; i++) {
@@ -208,7 +213,7 @@
     <fieldset data-role="controlgroup" data-type="horizontal">    
     <legend>Choose an attraction:</legend>
     <form action="" onsubmit="explore();return false;" id="routeForm">
-      <input type="radio" id="r1" name="type" value="store" checked>
+      <input type="radio" id="r1" name="type" value="store" >
       <label for="r1">Store</label>
       
       <input type="radio" id="r2" name="type" value="restaurant">
@@ -227,7 +232,7 @@
     </form>
    	</fieldset>
  </div>
- <div id="map-canvas" style=" margin : auto; width: 400px; height: 500px"></div>
+ <div id="map-canvas" style="margin: auto; width: 300px; height: 500px"></div>
  <br>
 </body>
 </html>

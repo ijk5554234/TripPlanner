@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
 <title>Fare Checker</title>
 <link rel="stylesheet" href="css/homepage.css" />
 <link rel="stylesheet" href="css/jquery.mobile-1.4.0.min.css" />
@@ -124,15 +126,18 @@
 		</div>
 	</div>
 <!------------------------------ Navigation Bar End------------------------------>
+<br>
 <form action="checkFare.do" method="POST"> 
-<input name="bus" value="  ">
-<input type="submit" value = "Check Bus Fare">
+
+<div class="ui-field-contain" style="padding: 10px">
+	<label for="from">Input bus line:</label> 
+	<input name="bus" value="" placeholder="E.g. 71A">
+	<input type="submit" value = "Check Bus Fare">
+</div>
+
 </form>
 
-${fare}
-
-    <div data-role="footer" data-position="fixed">
-      <h1>CMU eBiz</h1>
-    </div>
+<h3>${fare}</h3>
+<br>
 </body>
 </html>

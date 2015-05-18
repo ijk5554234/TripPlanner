@@ -129,7 +129,7 @@
 	<div data-role="content" data-theme="a" id="homePage">
 
 		<div data-role="picture" class="ui-top" align="center">
-			<img src="img/paac.jpg" alt="logo" align="middle"
+			<img src="img/yellowCar2.jpg" alt="logo" align="middle"
 				style="width: 60%; height: 60%">
 						<jsp:include page="error-list.jsp" />
 				
@@ -150,9 +150,6 @@
 				style="width: 100%; line-height: 50px; height: 50px">Exploration</a> <br>
 		</div>
 
-		<div data-role="footer" data-position="">
-			<h1>CMU eBiz</h1>
-		</div>
 	</div>
 </body>
 </html>
